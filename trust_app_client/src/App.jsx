@@ -7,10 +7,13 @@ import Footer from './components/Footer';
 import HomePage from './components/pages/HomePage';
 import ProgramsPage from './components/pages/ProgramsPages';
 import TeamsPage from './components/pages/TeamsPage';
+import ScrollToTop from './components/ScrollToTop';
+import ScrollToTopButton from './components/ScrollToTopButton';
 
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Navbar />
 
       <Routes>
@@ -19,7 +22,7 @@ function App() {
         <Route path="/programs" element={<ProgramsPage />} />
         <Route path="/team" element={<TeamsPage />} />
       </Routes>
-
+      <ScrollToTopButton />
       <Footer />
     </Router>
   );
