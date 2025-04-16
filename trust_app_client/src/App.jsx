@@ -21,6 +21,8 @@ function App() {
         <Route path="/about" element={<AboutUsPage />} />
         <Route path="/programs" element={<ProgramsPage />} />
         <Route path="/team" element={<TeamsPage />} />
+        <Route path="*" element={<HomePage />} />
+
       </Routes>
       <ScrollToTopButton />
       <Footer />
