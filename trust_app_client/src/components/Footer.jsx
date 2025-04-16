@@ -1,11 +1,15 @@
 import { Link } from 'react-router-dom';
 import logo from '../assets/Logo.jpeg.jpg'
+import facebook from './iconsSvg/facebook.png'
+import instagram from './iconsSvg/instagram.png'
+import linkedin from './iconsSvg/linkedin.png'
 
 import {
     EnvelopeIcon,
     MapPinIcon,
 } from '@heroicons/react/24/outline';
 import { InstagramIcon } from './iconsSvg/InstagramIcons';
+import { FacebookIcon } from './iconsSvg/FacebookIcon';
 
 const menuItems = [
     { name: 'Home', path: '/' },
@@ -60,7 +64,7 @@ export default function Footer() {
                 {/* Column 3: Social Media */}
                 <div>
                     <h3 className="text-lg font-semibold mb-4 text-platinum">Follow Us</h3>
-                    <div className="flex space-x-5">
+                    <div className="flex space-x-2">
                         <a
                             href="https://www.instagram.com/aksharacharitabletrust25"
                             target="_blank"
@@ -68,16 +72,38 @@ export default function Footer() {
                             className="text-gray-400 hover:text-pink-500"
                             aria-label="Instagram"
                         >
-                            <InstagramIcon className="w-6 h-6" />
+                            <img
+                                src={instagram}
+                                alt="Instagram"
+                                className="w-6 h-6"
+                            />
                         </a>
-
-                        {/* Add these when available */}
-                        {/* <a href="#" className="hover:text-blue-700" aria-label="LinkedIn">
-              <LinkedinIcon className="w-6 h-6" />
-            </a> */}
-                        {/* <a href="#" className="hover:text-yellow-400" aria-label="Facebook">
-              <FacebookIcon className="w-6 h-6" />
-            </a> */}
+                        <a
+                            href="https://www.facebook.com/share/169XWvbx6c/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-gray-400 hover:text-blue-500"
+                            aria-label="Facebook"
+                        >
+                            <img
+                                src={facebook}
+                                alt="Facebook"
+                                className="w-6 h-6"
+                            />
+                        </a>
+                        <a
+                            href="https://www.linkedin.com/in/akshara-charitable-trust-b4b0b0357"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-gray-400 hover:text-blue-500"
+                            aria-label="Facebook"
+                        >
+                            <img
+                                src={linkedin}
+                                alt="Facebook"
+                                className="w-6 h-6"
+                            />
+                        </a>
                     </div>
                 </div>
             </div>
