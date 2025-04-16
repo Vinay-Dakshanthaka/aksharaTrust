@@ -1,0 +1,3 @@
+const  programContent = {
+   content : "At Akshara Charitable Trust, we offer a range of educational programs designed to uplift and empower communities. From providing scholarships to supporting schools with resources and infrastructure, to offering vocational training for adults, our initiatives focus on creating sustainable, impactful change. Through these programs, we aim to bridge the gap in educational access, ensuring that every individual has the opportunity to learn, grow, and succeed."
+}
