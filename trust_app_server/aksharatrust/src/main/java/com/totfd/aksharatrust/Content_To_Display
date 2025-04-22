@@ -1,0 +1,25 @@
+Common data for entire appliocation : 
+	{Web app Name : Akshara Charitable trust 
+		Appearance on the application : Home page Hero Section
+										Footer 	
+										Footer for the Copyrights line }
+	{ Logo : Navbar, Footer } 
+
+
+Home Page : 
+	Welcome Title
+	Welcome Description 
+	
+	About Us Points : 
+	
+	Our Programs : Program Name, Program Brief description, 
+					
+					
+					
+					
+Section			Dynamic Data					Table/Entity Name
+Hero			Title, Description, Image		HeroContent
+About			Title, Text, Image				AboutSection
+Programs		Title, Description, Icon		Program, ProgramSectionContent
+Team			Name, Role, Bio, Image			TeamMember
+Footer/Nav		Links, Socials, Copyright		FooterContent, NavLink

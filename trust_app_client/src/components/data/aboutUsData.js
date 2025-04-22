@@ -1,4 +1,7 @@
-import visionAndMission from '../../assets/visionAndMission.jpg'
+// import visionAndMission from '../../assets/visionAndMission.jpg'
+// import visionAndMission from '../../assets/mission-vision-values-web-page-template-2A9HJ7E-removebg-preview.png'
+import visionAndMission from '../../assets/mission-vision-values-color.avif'
+// import visionAndMission from '../../assets/mission-vision-values-color_2.avif'
 import childMirror from '../../assets/children/child_infront_mirror.jpg'
 import beneficiaries from '../../assets/children/collage_images.jpg'
 
@@ -24,7 +27,8 @@ export const aboutContent = {
         title: "Why Do We Exist?",
         content:
           "We exist because we believe that education is the foundation for a better, more equitable world. With millions of children and adults still lacking access to quality education, we are driven by the need to ensure that learning opportunities are available to all.\n\nOur trust was founded to address these disparities and make a lasting impact through accessible, high-quality education.\n\nBy supporting schools, providing scholarships, and offering training programs, we strive to empower individuals to break through barriers and unlock their potential. Through education, we can build a brighter, more inclusive future.",
-        image: visionAndMission
+        image: visionAndMission,
+        id: "visionAndMission"
         },
     ],
     image: visionAndMission

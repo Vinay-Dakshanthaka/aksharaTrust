@@ -9,6 +9,7 @@ import ProgramsPage from './components/pages/ProgramsPages';
 import TeamsPage from './components/pages/TeamsPage';
 import ScrollToTop from './components/ScrollToTop';
 import ScrollToTopButton from './components/ScrollToTopButton';
+import { Gallery } from './components/Gallery';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/about" element={<AboutUsPage />} />
         <Route path="/programs" element={<ProgramsPage />} />
         <Route path="/team" element={<TeamsPage />} />
+        <Route path="/gallery" element={<Gallery />} />
         <Route path="*" element={<HomePage />} />
 
       </Routes>

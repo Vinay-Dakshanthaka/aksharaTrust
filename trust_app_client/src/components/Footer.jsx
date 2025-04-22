@@ -20,8 +20,8 @@ const menuItems = [
 
 export default function Footer() {
     return (
-        <footer className="bg-gray-300 text-gray-700 pt-10 pb-6 px-6">
-            <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
+        <footer className="bg-gray-300 text-gray-700 pt-10 pb-6 px-6 ">
+            <div className="w-full mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 max-w-7xl">
 
                 {/* Column 1: Logo & Contact */}
                 <div>
@@ -35,16 +35,14 @@ export default function Footer() {
                         />
                     </Link>
                     <h2 className="text-2xl font-bold text-platinum mb-4">Akshara Charitable Trust</h2>
-                    <p className="flex items-center text-sm mb-2">
-                        <EnvelopeIcon className="w-5 h-5 mr-2 text-blue-500" />
-                        <a href="mailto:aksharacharitabletrust25@gmail.com" className="hover:underline">
-                            aksharacharitabletrust25@gmail.com
-                        </a>
-                    </p>
-                    <p className="flex items-center text-sm">
-                        <MapPinIcon className="w-5 h-5 mr-2 text-blue-500" />
-                        Based in India
-                    </p>
+                    <div className="flex items-center text-sm mb-2">
+                        <address>
+                            No.56, "Sumukha Plaza" Subbarama chetty Road, <br />
+                            Basavanagudi, <br />
+                            Bangalore -560004
+                        </address>
+                    </div>
+
                 </div>
 
                 {/* Column 2: Quick Links */}
@@ -104,6 +102,18 @@ export default function Footer() {
                                 className="w-6 h-6"
                             />
                         </a>
+                    </div>
+                    <div className='my-4'>
+                        <p className="flex items-center text-sm mb-2">
+                            <EnvelopeIcon className="w-5 h-5 mr-2 text-blue-500" />
+                            <a href="mailto:aksharacharitabletrust25@gmail.com" className="hover:underline">
+                                aksharacharitabletrust25@gmail.com
+                            </a>
+                        </p>
+                        <p className="flex items-center text-sm">
+                            <MapPinIcon className="w-5 h-5 mr-2 text-blue-500" />
+                            Based in India
+                        </p>
                     </div>
                 </div>
             </div>

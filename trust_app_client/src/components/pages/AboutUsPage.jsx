@@ -4,6 +4,7 @@ import {
   LightBulbIcon,
 } from "@heroicons/react/24/outline";
 import { aboutContent } from "../data/aboutUsData";
+import './AboutUsPage.css'
 
 const iconMap = {
   EyeIcon: EyeIcon,
@@ -25,7 +26,7 @@ export default function AboutUsPage() {
             return (
               <div
                 key={idx}
-                className={`relative rounded-lg overflow-hidden shadow-lg flex flex-col-reverse md:flex-row ${idx % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
+                className={`relative rounded-lg bg-white overflow-hidden shadow-lg flex flex-col-reverse md:flex-row ${idx % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
                   }`}
               >
                 {/* Background Image */}
@@ -33,7 +34,7 @@ export default function AboutUsPage() {
                   <img
                     src={section.image}
                     alt={section.title}
-                    className="object-cover w-full h-full"
+                    className="object-contain w-full h-full" id={section.id ? section.id : ""}
                   />
                 </div>
 

@@ -11,6 +11,7 @@ export default function Navbar() {
         { name: 'About', path: '/about' },
         { name: 'Programs', path: '/programs' },
         { name: 'Team', path: '/team' },
+        { name: 'Gallery', path: '/gallery' },
     ];
 
     return (
