@@ -51,7 +51,7 @@ export default function Footer() {
                     <ul className="space-y-2">
                         {menuItems.map((item, index) => (
                             <li key={index}>
-                                <Link to={item.path} className="hover:text-yellow-400 transition-colors">
+                                <Link to={item.path} className="hover:text-indigo-600 transition-colors">
                                     {item.name}
                                 </Link>
                             </li>
