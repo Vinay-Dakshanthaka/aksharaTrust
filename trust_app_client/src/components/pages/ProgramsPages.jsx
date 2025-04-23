@@ -9,12 +9,12 @@ const programs = [
   {
     icon: <AcademicCapIcon className="w-8 h-8 text-blue-500" />,
     title: "Scholarships",
-    desc: "Financial aid to students from low-income backgrounds to support higher education.",
+    desc: "Financial aid for the education of students who are below the poverty line.",
   },
   {
     icon: <BuildingLibraryIcon className="w-8 h-8 text-green-500" />,
     title: "School Support",
-    desc: "Infrastructure and educational resources to underserved schools.",
+    desc: "Provisions of infrastructure and educational resources.",
   },
   {
     icon: <BriefcaseIcon className="w-8 h-8 text-yellow-500" />,
