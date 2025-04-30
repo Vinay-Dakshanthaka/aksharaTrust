@@ -1,115 +1,80 @@
-import { useEffect, useState } from "react";
-import { uploadImageToCloud, fetchSettings, updateSetting } from "../services/settingsService";
+import React, { useState } from 'react'
+import { baseURL } from '../config/baseURL'
+import axios from 'axios'
+import toast from 'react-hot-toast'
 
-export default function AdminSettings() {
-    const [settings, setSettings] = useState({});
-    const [logoPreview, setLogoPreview] = useState(null);
-    const [loading, setLoading] = useState(false);
+const GlobalDataSettings = () => {
+    // @PutMapping("/update/{id}")
+    // public ResponseEntity<ResponseStructure<GlobalDataDto>> updateGlobalData(@PathVariable Long id, @RequestBody GlobalDataDto globalDataDto){
+    //     GlobalData globalData = GlobalDataMapper.toEntity(globalDataDto);
+    //     ResponseStructure<GlobalDataDto> responseStructure = new ResponseStructure<>();
+    //     responseStructure.setCode(HttpStatus.OK.value());
+    //     responseStructure.setMessage("Global Data Updated Successfully");
+    //     responseStructure.setData(globalDataService.updateGlobalData(globalData, id));
+    //     return ResponseEntity.ok(responseStructure);
+    // }   
+    const [formData, setFormData] = useState({  dataKey: '', dataValue: '', type: '' })
+    const [errors, setErrors] = useState({})
+    const [isSubmitting, setIsSubmitting] = useState(false)
+    const [isSuccess, setIsSuccess] = useState(false)
+    const [isError, setIsError] = useState(false)
+    const [errorMessage, setErrorMessage] = useState('')    
+    
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value })
+    }
+    
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        try {
+            const response = await axios.post(`${baseURL}/api/global-data/create `, formData)
+            console.log(response)
+            toast.success('Data saved successfully')
+            setIsSubmitting(true)
+            setIsSuccess(false)
+            setIsError(false)
+            setFormData({ dataKey: '', dataValue: '', type: '' })
+            setErrors({})
+            setIsSuccess(true)
+            setIsSubmitting(false)  
+                    
+        } catch (error) {
+            setIsSubmitting(false)
+            setIsSuccess(false)
+            setIsError(true)
+            setErrorMessage(error.message)
+            toast.error('Data not saved')   
+            console.log(error)
+        }
+    }   
 
-    useEffect(() => {
-        fetchSettings().then(setSettings);
-    }, []);
-
-    const handleChange = (key, value) => {
-        setSettings(prev => ({ ...prev, [key]: value }));
-    };
-
-    const handleSave = async (key) => {
-        setLoading(true);
-        await updateSetting(key, settings[key]);
-        setLoading(false);
-        alert("Saved!");
-    };
-
-    const handleLogoUpload = async (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
-
-        setLoading(true);
-        const imageUrl = await uploadImageToCloud(file); // Upload to Cloudinary/Firebase etc.
-        handleChange("logo_url", imageUrl);
-        await updateSetting("logo_url", imageUrl);
-        setLogoPreview(imageUrl);
-        setLoading(false);
-        alert("Logo updated!");
-    };
-
-    return (
-        <div className="max-w-3xl mx-auto px-4 py-10">
-            <h2 className="text-2xl font-bold mb-6">Global Site Settings</h2>
-
-            <div className="space-y-6">
-
-                {/* App Name */}
-                <div>
-                    <label className="block text-gray-700 font-semibold mb-1">App Name</label>
-                    <input
-                        type="text"
-                        className="w-full border border-gray-300 rounded px-3 py-2"
-                        value={settings.app_name || ""}
-                        onChange={(e) => handleChange("app_name", e.target.value)}
-                    />
-                    <button
-                        onClick={() => handleSave("app_name")}
-                        className="mt-2 bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700"
-                    >
-                        Save
-                    </button>
-                </div>
-
-                {/* Tagline */}
-                <div>
-                    <label className="block text-gray-700 font-semibold mb-1">Tagline</label>
-                    <input
-                        type="text"
-                        className="w-full border border-gray-300 rounded px-3 py-2"
-                        value={settings.tagline || ""}
-                        onChange={(e) => handleChange("tagline", e.target.value)}
-                    />
-                    <button
-                        onClick={() => handleSave("tagline")}
-                        className="mt-2 bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700"
-                    >
-                        Save
-                    </button>
-                </div>
-
-                {/* Logo Upload */}
-                <div>
-                    <label className="block text-gray-700 font-semibold mb-1">Logo</label>
-                    <input type="file" accept="image/*" onChange={handleLogoUpload} />
-                    {settings.logo_url && (
-                        <img
-                            src={logoPreview || settings.logo_url}
-                            alt="Logo Preview"
-                            className="mt-4 h-20"
-                        />
-                    )}
-                </div>
-
-                {/* Social Links */}
-                {["facebook", "instagram", "youtube", "twitter", "linkedin"].map((key) => (
-                    <div key={key}>
-                        <label className="block text-gray-700 font-semibold capitalize mb-1">
-                            {key} URL
-                        </label>
-                        <input
-                            type="text"
-                            className="w-full border border-gray-300 rounded px-3 py-2"
-                            value={settings[key] || ""}
-                            onChange={(e) => handleChange(key, e.target.value)}
-                        />
-                        <button
-                            onClick={() => handleSave(key)}
-                            className="mt-2 bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700"
-                        >
-                            Save
-                        </button>
-                    </div>
-                ))}
-
-                {loading && <p className="text-blue-600">Processing...</p>}
+  return (
+    <>
+    <div className='mx-auto px-4 py-10 max-w-3xl'>
+        <h2 className='mb-6 font-bold text-2xl'>Global Data Settings</h2>
+        <form onSubmit={handleSubmit}>
+            <div className='mb-4'>
+                <label className='block mb-2 font-bold text-gray-700'>Data Key</label>
+                <input type='text' name='dataKey' value={formData.dataKey} onChange={handleChange} className='px-3 py-2 border border-gray-300 rounded w-full' />
+                {errors.dataKey && <p className='text-red-500'>{errors.dataKey}</p>}
             </div>
-        </div>
-    );
+            <div className='mb-4'>
+                <label className='block mb-2 font-bold text-gray-700'>Data Value</label>
+                <input type='text' name='dataValue' value={formData.dataValue} onChange={handleChange} className='px-3 py-2 border border-gray-300 rounded w-full' />
+                {errors.dataValue && <p className='text-red-500'>{errors.dataValue}</p>}
+            </div>
+            <div className='mb-4'>
+                <label className='block mb-2 font-bold text-gray-700'>Type</label>
+                <input type='text' name='type' value={formData.type} onChange={handleChange} className='px-3 py-2 border border-gray-300 rounded w-full' />
+                {errors.type && <p className='text-red-500'>{errors.type}</p>}
+            </div>
+            <button type='submit' className='bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded font-bold text-white'>Submit</button>
+            {isSuccess && <p className='text-green-500'>Data saved successfully</p>}
+            {isError && <p className='text-red-500'>{errorMessage}</p>} 
+        </form>
+    </div>
+    </>
+  )
 }
+
+export default GlobalDataSettings

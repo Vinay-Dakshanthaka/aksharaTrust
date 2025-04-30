@@ -32,7 +32,7 @@ public class GlobalData {
 	@Column(name = "data_key", nullable = false, unique = true)
 	private String dataKey;
 
-	@Column(name = "data_value")
+	@Column(name = "data_value",length = 5000)
 	private String dataValue;
 
     // e.g. "text", "image", "url", "email", etc.

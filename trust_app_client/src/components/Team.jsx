@@ -1,53 +1,60 @@
-import { useNavigate } from 'react-router-dom'; // <-- import useNavigate
-import defaultPic from "../assets/children/profile_pic_default.webp";
-import apsara from "../assets/team/apsara.jpg";
-import lokesh from "../assets/team/lokesh.jpg";
-import suma from "../assets/team/suma.jpg";
+import { useNavigate } from 'react-router-dom'; 
+import axios from 'axios'; 
+import { useEffect, useState } from 'react'; 
 import { UsersIcon } from '@heroicons/react/20/solid';
+import { baseURL } from './config/baseURL';
 
-const team = [
-  {
-    name: "Suma R",
-    title: "Founder",
-    qualification: "B.Com., M.B.A.",
-    image: suma,
-    description:
-      "A visionary leader and passionate changemaker, Mrs. R Suma laid the foundation of our organization with the dream of building a more inclusive and impactful future. With a heart for service and a mind for strategy, she continues to inspire the mission forward every day.",
-  },
-  {
-    name: "G Lokesh",
-    title: "Trustee",
-    qualification: "Chartered Accountant",
-    image: lokesh,
-    description:
-      "His path to becoming a Chartered Accountant was not easy, that made him to believe every struggle had a purpose. So, he developed a heartfelt desire to be a guiding light for children who are not lacking in potential, but in support. He believes that if he can play even the smallest role in someone else's success story, his purpose is served.",
-  },
-  {
-    name: "Apsara B",
-    title: "Trustee",
-    qualification: "Chartered Accountant",
-    image: apsara,
-    description:
-      "Having faced and overcome significant challenges in her own educational journey, Ms. Apsara B her personal struggles became the driving force behind her vision to uplift underprivileged students. Her journey is not just one of resilience, but one that now creates ripples of hope in the lives of many.",
-  },
-];
+const fallbackImage =
+  'https://lara.blr1.digitaloceanspaces.com/real_estate/aksharaTrust/gallery/317c018f-7969-401f-8c1a-ad23daa87409-Logo.jpeg.jpg';
 
 export default function Team() {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
+  const [teamMembers, setTeamMembers] = useState([]);
+
+  // Fetch team members dynamically
+  const fetchTeamMembers = async () => {
+    try {
+      const response = await axios.get(`${baseURL}/api/media/all`);
+      const mediaList = response.data.data;
+
+      // Filter by "team" category
+      const teamList = mediaList.filter(item => item.category === 'team' && item.visible === true);
+
+      // Sort: role "Founder" first (case-insensitive, trimmed)
+      const sortedTeamList = teamList.sort((a, b) => {
+        const roleA = (a.role?.trim().toLowerCase() || '');
+        const roleB = (b.role?.trim().toLowerCase() || '');
+
+        // Prioritize "founder" role first
+        if (roleA === 'founder' && roleB !== 'founder') return -1;
+        if (roleB === 'founder' && roleA !== 'founder') return 1;
+
+        return 0; // Keep the original order for others
+      });
+
+      setTeamMembers(sortedTeamList);
+    } catch (error) {
+      console.error('Failed to fetch team data:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchTeamMembers();
+  }, []); // Run once when the component mounts
 
   return (
     <section id="team" className="bg-gray-100 py-16 px-6 md:px-16">
       <h3 className="text-4xl font-bold text-center text-platinum mb-12">Our Team</h3>
       <div className="grid md:grid-cols-3 gap-10 max-w-6xl mx-auto">
-        {team.map((member, idx) => (
+        {teamMembers.map((member, idx) => (
           <div
             key={idx}
             className="p-6 rounded-lg shadow hover:shadow-lg transition duration-300 text-center bg-white"
           >
             {/* Profile Image */}
-            {member.image ? (
+            {member.imageUrl ? (
               <img
-                src={member.image}
+                src={member.imageUrl}
                 alt={member.name}
                 className="w-36 h-36 mx-auto rounded-full object-cover mb-4"
               />
@@ -63,7 +70,7 @@ export default function Team() {
 
             {/* Know More Link/Button */}
             <button
-              onClick={() => navigate("/team")}
+              onClick={() => navigate('/team')}
               className="mt-4 text-sm text-blue-600 hover:underline"
             >
               Know More →

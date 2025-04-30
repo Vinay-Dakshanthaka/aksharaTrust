@@ -41,15 +41,20 @@ public class UserController {
 	}
 
 	@PostMapping("/verifyByEmailAndPassword")
-	public ResponseEntity<ResponseStructure<UserDto>> verifyByEmailAndPassword(@RequestBody String email,
-			String Password) {
-		UserDto foundUser = userService.verifyByEmailAndPassword(email, Password);
-		ResponseStructure<UserDto> structure = new ResponseStructure<UserDto>();
-		structure.setCode(HttpStatus.FOUND.value());
-		structure.setData(foundUser);
-		structure.setMessage("Verifed Successfully");
+	public ResponseEntity<ResponseStructure<UserDto>> verifyByEmailAndPassword(@RequestBody UserDto userDto) {
+		String email = userDto.getEmail();
+		String password = userDto.getPassword();
 
-		return new ResponseEntity<ResponseStructure<UserDto>>(structure, HttpStatus.FOUND);
+		System.out.println("email: " + email + ", password: " + password);
+
+		UserDto foundUser = userService.verifyByEmailAndPassword(email, password);
+
+		ResponseStructure<UserDto> structure = new ResponseStructure<>();
+		structure.setCode(HttpStatus.OK.value());
+		structure.setData(foundUser);
+		structure.setMessage("Verified Successfully");
+
+		return new ResponseEntity<>(structure, HttpStatus.OK);
 	}
 
 	@GetMapping("/getUser/{id}")

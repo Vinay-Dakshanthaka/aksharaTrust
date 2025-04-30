@@ -1,34 +1,42 @@
-import defaultPic from "../../assets/children/profile_pic_default.webp";
-import apsara from "../../assets/team/apsara.jpg";
-import lokesh from "../../assets/team/lokesh.jpg";
-import suma from "../../assets/team/suma.jpg";
+import { useEffect, useState } from "react";
+import axios from "axios";
 import { UsersIcon } from "@heroicons/react/20/solid";
+import { baseURL } from "../config/baseURL";
 
-const team = [
-  {
-    name: "Suma R",
-    title: "Founder",
-    qualification: "B.Com., M.B.A.",
-    image: suma,
-    description: "A visionary leader and passionate changemaker, Mrs. R Suma laid the foundation of our organization with the dream of building a more inclusive and impactful future. With a heart for service and a mind for strategy, she continues to inspire the mission forward every day."
-  },
-  {
-    name: "G Lokesh",
-    title: "Trustee",
-    qualification: "Chartered Accountant",
-    image: lokesh,
-    description: "His path to becoming a Chartered Accountant was not easy, that made him to believe every struggle had a purpose. So, he developed a heartfelt desire to be a guiding light for children who are not lacking in potential, but in support. He believes that if he can play even the smallest role in someone else's success story, his purpose is served."
-  },
-  {
-    name: "Apsara B",
-    title: "Trustee",
-    qualification: "Chartered Accountant",
-    image: apsara,
-    description: "Having faced and overcome significant challenges in her own educational journey, Ms. Apsara B  her personal struggles became the driving force behind her vision to uplift underprivileged students. Her journey is not just one of resilience, but one that now creates ripples of hope in the lives of many."
-  },
-];
+const fallbackImage = "https://lara.blr1.digitaloceanspaces.com/real_estate/aksharaTrust/gallery/317c018f-7969-401f-8c1a-ad23daa87409-Logo.jpeg.jpg";
 
 export default function TeamsPage() {
+  const [teamMembers, setTeamMembers] = useState([]);
+
+  const fetchMedia = async () => {
+    try {
+      const response = await axios.get(`${baseURL}/api/media/all`);
+      const mediaList = response.data.data;
+  
+      let teamList = mediaList.filter(item => item.category === "team" && item.visible === true);
+  
+      // Sort: role "Founder" first (case-insensitive, trimmed)
+      teamList = teamList.sort((a, b) => {
+        const roleA = (a.role?.trim().toLowerCase() || "");
+        const roleB = (b.role?.trim().toLowerCase() || "");
+  
+        // Prioritize "founder" role first
+        if (roleA === "founder" && roleB !== "founder") return -1;
+        if (roleB === "founder" && roleA !== "founder") return 1;
+  
+        return 0; // Keep the original order for others
+      });
+  
+      setTeamMembers(teamList);
+    } catch (error) {
+      console.error("Failed to fetch team data:", error);
+    }
+  };  
+  
+  useEffect(() => {
+    fetchMedia();
+  }, []);
+
   return (
     <div className="w-full">
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-4 py-12">
@@ -40,7 +48,7 @@ export default function TeamsPage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {team.map((member, index) => (
+          {teamMembers.map((member, index) => (
             <div
               key={index}
               className="w-full bg-white rounded-lg shadow-lg overflow-hidden flex flex-col md:flex-row"
@@ -49,15 +57,15 @@ export default function TeamsPage() {
               <div className="w-full md:w-2/5 h-80">
                 <img
                   className="object-contain sm:object-contain md:object-cover w-full h-full"
-                  src={member.image}
-                  alt={member.name}
+                  src={member.imageUrl || fallbackImage}
+                  alt={member.name || "Team Member"}
                 />
               </div>
 
               {/* Text */}
               <div className="w-full md:w-3/5 p-4 flex flex-col justify-center space-y-2 text-center md:text-left">
                 <p className="text-xl text-black font-bold">{member.name}</p>
-                <p className="text-base text-gray-900 font-medium">{member.title}</p>
+                <p className="text-base text-gray-900 font-medium">{member.role}</p>
                 <p className="text-sm text-gray-900">{member.qualification}</p>
                 <p className="text-sm text-gray-700 leading-relaxed">{member.description}</p>
               </div>

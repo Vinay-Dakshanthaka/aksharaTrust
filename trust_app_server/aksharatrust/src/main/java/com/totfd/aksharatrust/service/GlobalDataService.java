@@ -1,22 +1,22 @@
 package com.totfd.aksharatrust.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.totfd.aksharatrust.dto.GlobalDataDto;
+import com.totfd.aksharatrust.entity.GlobalData;
+
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
-import com.totfd.aksharatrust.entity.GlobalData;
-import com.totfd.aksharatrust.repository.GlobalDataRepository;
 
 @Service
-public class GlobalDataService {
+public interface GlobalDataService {
 
-	@Autowired
-	GlobalDataRepository globalDataRepository;
-	
-	public GlobalData saveGlobalData(GlobalData globalData) {
-		
-		GlobalData savedData = globalDataRepository.save(globalData);
-		
-		return savedData;
-		
-	}
+	List<GlobalDataDto> getAllGlobalData();
+
+	GlobalDataDto getGlobalDataById(Long id);
+
+	GlobalDataDto updateGlobalData(GlobalData globalData, Long id);
+
+	GlobalDataDto createGlobalData(GlobalData globalData);
+
 }
