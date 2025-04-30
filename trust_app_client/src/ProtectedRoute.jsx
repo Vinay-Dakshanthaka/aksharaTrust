@@ -1,12 +1,14 @@
+// components/ProtectedRoute.js
 import { Navigate } from 'react-router-dom';
 
 const ProtectedRoute = ({ children }) => {
   const role = localStorage.getItem('role');
-  const email = localStorage.getItem('email');
-
-  if (role !== 'ADMIN' || !email) {
+  
+  if (role !== 'ADMIN') {
     return <Navigate to="/login" replace />;
   }
 
   return children;
 };
+
+export default ProtectedRoute;

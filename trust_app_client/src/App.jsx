@@ -21,6 +21,7 @@ import MediaUpload from './components/AdminActivites/MediaUplaod';
 import AdminActivities from './components/AdminActivites/AdminActivites';
 import Login from './components/AdminActivites/Login';
 import MediaGallery from './components/AdminActivites/MediaGallery';
+import ProtectedRoute from './ProtectedRoute';
 
 function App() {
 
@@ -57,10 +58,38 @@ function App() {
             <Route path="/team" element={<TeamsPage />} />
             <Route path="/gallery" element={<Gallery />} />
             <Route path="*" element={<HomePage />} />
-            <Route path="global-data" element={<GlobalData />} />
-            <Route path="media-gallery" element={<MediaGallery />} />
-            <Route path="media-upload" element={<MediaUpload />} />
-            <Route path="admin-activities" element={<AdminActivities />} />
+            <Route
+              path="global-data"
+              element={
+                <ProtectedRoute>
+                  <GlobalData />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="media-gallery"
+              element={
+                <ProtectedRoute>
+                  <MediaGallery />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="media-upload"
+              element={
+                <ProtectedRoute>
+                  <MediaUpload />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="admin-activities"
+              element={
+                <ProtectedRoute>
+                  <AdminActivities />
+                </ProtectedRoute>
+              }
+            />
             <Route path="login" element={<Login />} />
 
           </Routes>
