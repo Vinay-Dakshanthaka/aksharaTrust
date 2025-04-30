@@ -25,7 +25,7 @@ const GlobalData = () => {
   // Label mappings
   const readableLabels = {
     app_name: { label: 'App Name', maxWords: 5 },
-    tagline: { label: 'Tagline', maxWords: 20 },
+    tagline: { label: 'Tagline', maxWords: 30 },
     logo_url: { label: 'Logo URL', maxWords: 1 },
 
     home_about_our_vision: { label: 'Home About Our Vision', maxWords: 20 },
