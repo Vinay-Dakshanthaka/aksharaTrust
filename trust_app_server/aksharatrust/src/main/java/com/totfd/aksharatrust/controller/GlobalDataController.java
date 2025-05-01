@@ -23,7 +23,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/global-data")
-@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "*")
 public class GlobalDataController {
 
     @Autowired

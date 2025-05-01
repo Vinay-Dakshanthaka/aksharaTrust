@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/media")
-@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "*")
 public class MediaController {
 
     @Autowired

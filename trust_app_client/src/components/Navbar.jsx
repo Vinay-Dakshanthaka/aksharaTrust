@@ -55,6 +55,7 @@ export default function Navbar() {
                     <Link
                         key={index}
                         to={item.path}
+                        onClick={() => setOpen(false)}
                         className={`text-platinum ${linkBaseStyle} ${isActive ? activeStyle : ''} ${hoverStyle}`}
                     >
                         {item.name}
@@ -67,6 +68,7 @@ export default function Navbar() {
                     <Link
                         key={index}
                         to={item.path}
+                        onClick={() => setOpen(false)}
                         className={`text-platinum ${linkBaseStyle} ${isActive ? activeStyle : ''} ${hoverStyle}`}
                     >
                         {item.name}
@@ -83,6 +85,7 @@ export default function Navbar() {
             ) : (
                 <Link
                     to="/login"
+                    onClick={() => setOpen(false)}
                     className={`text-platinum ${linkBaseStyle} ${hoverStyle}`}
                 >
                     Login
@@ -94,7 +97,7 @@ export default function Navbar() {
     return (
         <nav className="shadow sticky top-0 z-50 bg-platinum">
             <div className="container mx-auto px-4 py-2 flex justify-between items-center">
-                <Link to="/" className="font-bold text-platinum">
+                <Link to="/" className="font-bold text-platinum" onClick={() => setOpen(false)}>
                     <img
                         src={logo}
                         alt="logo"
@@ -115,10 +118,11 @@ export default function Navbar() {
 
             {/* Mobile Nav */}
             {open && (
-                <div className="md:hidden px-6 pb-4 pt-2 space-y-2">
+                <div className="md:hidden flex flex-col px-6 pb-4 pt-2 space-y-2">
                     {renderLinks()}
                 </div>
             )}
+
         </nav>
     );
 }

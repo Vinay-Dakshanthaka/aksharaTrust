@@ -3,16 +3,7 @@ import { baseURL } from '../config/baseURL'
 import axios from 'axios'
 import toast from 'react-hot-toast'
 
-const GlobalDataSettings = () => {
-    // @PutMapping("/update/{id}")
-    // public ResponseEntity<ResponseStructure<GlobalDataDto>> updateGlobalData(@PathVariable Long id, @RequestBody GlobalDataDto globalDataDto){
-    //     GlobalData globalData = GlobalDataMapper.toEntity(globalDataDto);
-    //     ResponseStructure<GlobalDataDto> responseStructure = new ResponseStructure<>();
-    //     responseStructure.setCode(HttpStatus.OK.value());
-    //     responseStructure.setMessage("Global Data Updated Successfully");
-    //     responseStructure.setData(globalDataService.updateGlobalData(globalData, id));
-    //     return ResponseEntity.ok(responseStructure);
-    // }   
+const GlobalDataSettings = () => { 
     const [formData, setFormData] = useState({  dataKey: '', dataValue: '', type: '' })
     const [errors, setErrors] = useState({})
     const [isSubmitting, setIsSubmitting] = useState(false)
@@ -28,7 +19,7 @@ const GlobalDataSettings = () => {
         e.preventDefault()
         try {
             const response = await axios.post(`${baseURL}/api/global-data/create `, formData)
-            console.log(response)
+            // console.log(response)
             toast.success('Data saved successfully')
             setIsSubmitting(true)
             setIsSuccess(false)
